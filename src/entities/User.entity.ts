@@ -1,5 +1,5 @@
 
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Note } from "./Note.entity";
 import { RecivedNote } from "./RecivedNote.entity";
 import bycrpt from 'bcrypt'
@@ -12,6 +12,7 @@ export class User {
     name : string
     @Column({nullable : true})
     photo : string
+    @Index("email_index")
     @Column({unique : true})
     email : string
     @Column()

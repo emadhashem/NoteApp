@@ -13,11 +13,6 @@ export class Note {
 
     @Column()
     msg : string
-    
-    @Column({
-        nullable : true
-    })
-    photo : string
 
     @Column(() => NoteType)
     note : NoteType
