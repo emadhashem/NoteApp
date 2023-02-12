@@ -26,6 +26,7 @@
       "pg": "^8.4.0",
       "random-email": "^1.0.3",
       "reflect-metadata": "^0.1.13",
+      "socket.io": "^4.5.4",
       "typeorm": "0.3.11",
       "zod": "^3.20.2"
    },

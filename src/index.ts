@@ -7,12 +7,18 @@ import config from 'config'
 import { AppError } from "./utils/AppError";
 import authRoute from './routes/auth.route'
 import noteRoute from './routes/note.route'
-
+import {Server} from 'socket.io'
+import http from 'http'
+import path from "path";
+import * as url from 'url';
 const app : Express = express()
-
+const server = http.createServer(app)
+const io = new Server(server)
 
 AppDataSource.initialize()
 .then(async () => {
+    // html
+    app.use(express.static(path.join(path.dirname(__filename) , 'public')))
     // body parser
     app.use(express.json())
     // cors
@@ -37,9 +43,17 @@ AppDataSource.initialize()
             message : err.message
         })
     })
+    // io setup
+    io.on('connection' , (socket) => {
+        socket.on('send_note' , (recivers : string[] , note) => {
+            recivers.forEach(user_email => {
+                socket.emit(user_email , note)
+            })
+        })
+    })
     // connect server
     const port = config.get<number>('port')
-    app.listen(port , () => {
+    server.listen(port , () => {
         console.log(`app is listening on port ${port}`)
     })
 })

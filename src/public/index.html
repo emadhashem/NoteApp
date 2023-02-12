@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+		var email = prompt("Please enter your email");
+	</script>
+</head>
+<body>
+    <div>
+        <input id = "note-msg" placeholder="Enter your note..." />
+        <button id = 'send'>Send</button>
+    </div>
+    <hr />
+    <div id="recived-note" >
+
+    </div>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+		
+        var socket = io();
+        const reciver = 'tst1@tst.com'
+        $('#send').click((e) => {
+            
+            const msg_body = $('#note-msg').val()
+            socket.emit('send_note' , [reciver],  {
+                "title" : "title",
+                "msg" : msg_body,
+                "type" : "work",
+                "recipients" : ["tst@1tst.com"]
+            })
+        })
+        socket.on(reciver , note => {
+            alert(note.msg)
+        })  
+    </script>
+</body>
+</html>

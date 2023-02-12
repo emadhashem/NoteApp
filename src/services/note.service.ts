@@ -73,5 +73,5 @@ export const getNotesInLast30Days = async (
         'note_.created_at AS created_at',
         'note_.user_id AS sender', 
     ])
-    return await qb.execute()
+    return await qb.offset(skip).limit(limit).execute()
 }
