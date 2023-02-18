@@ -7,6 +7,7 @@ import config from 'config'
 import { AppError } from "./utils/AppError";
 import authRoute from './routes/auth.route'
 import noteRoute from './routes/note.route'
+import uploadroute from './routes/test.route'
 import {Server} from 'socket.io'
 import http from 'http'
 import path from "path";
@@ -29,7 +30,7 @@ AppDataSource.initialize()
     // routes
     app.use('/api/auth' , authRoute)
     app.use('/api/note' , noteRoute)
-
+    app.use('/api' , uploadroute)
     // handle not existing routes
     app.all('*' , (req , res , next: NextFunction) => {
         return next(new AppError(404 , `this route ${req.originalUrl} not found`))
